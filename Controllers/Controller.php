@@ -2,9 +2,9 @@
 
     class Controller {
         
-        public static function FunctionName(Type $var = null)
+        public static function get()
         {
-            # code...
+            require_once('./api/landfills/get.php');
         }
     }
     

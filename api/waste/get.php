@@ -4,47 +4,46 @@
     header('Content-Type: application/json');
 
     include_once './config/Database.php';
-    include_once './models/Landfill.php';
+    include_once './models/Waste.php';
 
     //Intantiate DB & connect
     $database = new Database();
     $db = $database->connect();
 
-    //Instantiate Landfill
-    $landfill =  new Landfill($db);
+    //Instantiate Waste
+    $waste =  new Waste($db);
 
-    //landfill query
-    $result = $landfill->get();
+    //waste query
+    $result = $waste->get();
     //get row count
     $num = $result->rowCount();
 
-    //check if any landfill
+    //check if any waste
     if ($num>0) {
-        //landfill array
-        $landfill_arr = array();
-        #$landfill_arr['data'] = array();
+        //waste array
+        $waste_arr = array();
+        #$waste_arr['data'] = array();
 
         while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
             extract($row);
-            $landfill_item = array(
+            $waste_item = array(
                 'id' => $id,
                 'name' => $name,
-                'phone_number' => $phone_number,
-                'address' => $address
+                'category' => $category
             );
 
             //push data
-            array_push($landfill_arr, $landfill_item);
+            array_push($waste_arr, $waste_item);
         }
 
         //Turn to JSON & Output
-        echo json_encode($landfill_arr);
+        echo json_encode($waste_arr);
            
 
     } else{
-        //No landfill
+        //No waste
         echo json_encode(
-            array('message' => 'No Landfill Found')
+            array('message' => 'No Waste Found')
         );
     }
 ?>

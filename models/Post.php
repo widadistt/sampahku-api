@@ -1,25 +1,26 @@
 <?php
 
-    class Waste {
+    class Post {
         //DB stuff
         private $conn;
-        private $table = 'waste';
+        private $table = 'post';
 
-        //Waste props
+        //post props
         public $id;
-        public $name;
-        public $category;
+        public $title;
+        public $writer;
+        public $published_date;
 
         //constructor
         public function __construct($db){
             $this->conn = $db;
         }
 
-        //get wastes
+        //get posts
         public function get()
         {
             //create query
-            $query = 'SELECT * FROM waste';
+            $query = 'SELECT * FROM post';
 
             //prepare statement
             $stmt = $this->conn->prepare($query);
@@ -34,7 +35,7 @@
         {
             //create query
             $query = 'SELECT * 
-                FROM waste 
+                FROM post 
                 WHERE id = ?
                 LIMIT 0,1';
 
@@ -51,28 +52,32 @@
 
             // Set properties
             $this->id = $row['id'];
-            $this->name = $row['name'];
-            $this->category = $row['category'];
+            $this->title = $row['title'];
+            $this->writer = $row['writer'];
+            $this->published_date = $row['published_date'];
         }
 
         // POST
         public function post()
         {
-            $query = 'INSERT INTO waste
+            $query = 'INSERT INTO post
                 SET
-                    name = :name,
-                    category = :category';
+                    title = :title,
+                    writer = :writer,
+                    published_date = :published_date';
 
             //prepare statement
             $stmt = $this->conn->prepare($query);
 
             // Clean data
-            $this->name = htmlspecialchars(strip_tags($this->name));
-            $this->category = htmlspecialchars(strip_tags($this->category));
+            $this->title = htmlspecialchars(strip_tags($this->title));
+            $this->writer = htmlspecialchars(strip_tags($this->writer));
+            $this->published_date = htmlspecialchars(strip_tags($this->published_date));
 
             // Bind data
-            $stmt->bindParam(':name', $this->name);
-            $stmt->bindParam(':category', $this->category);
+            $stmt->bindParam(':title', $this->title);
+            $stmt->bindParam(':writer', $this->writer);
+            $stmt->bindParam(':published_date', $this->published_date);
 
             //exeCUTE
             if ($stmt->execute()){
@@ -86,10 +91,11 @@
         // Update POST
         public function update()
         {
-            $query = 'UPDATE waste
+            $query = 'UPDATE post
                 SET
-                    name = :name,
-                    category = :category
+                    title = :title,
+                    writer = :writer,
+                    published_date = :published_date
                 WHERE
                     id = :id';
 
@@ -98,13 +104,15 @@
 
             // Clean data
             $this->id = htmlspecialchars(strip_tags($this->id));
-            $this->name = htmlspecialchars(strip_tags($this->name));
-            $this->category = htmlspecialchars(strip_tags($this->category));
+            $this->title = htmlspecialchars(strip_tags($this->title));
+            $this->writer = htmlspecialchars(strip_tags($this->writer));
+            $this->published_date = htmlspecialchars(strip_tags($this->published_date));
 
             // Bind data
             $stmt->bindParam(':id', $this->id);
-            $stmt->bindParam(':name', $this->name);
-            $stmt->bindParam(':category', $this->category);
+            $stmt->bindParam(':title', $this->title);
+            $stmt->bindParam(':writer', $this->writer);
+            $stmt->bindParam(':published_date', $this->published_date);
 
             //exeCUTE
             if ($stmt->execute()){
@@ -118,7 +126,7 @@
         // DELETE data
         public function delete()
         {
-            $query = 'DELETE FROM waste
+            $query = 'DELETE FROM post
                 WHERE id = :id';
             
             $stmt = $this->conn->prepare($query);

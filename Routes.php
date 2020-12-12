@@ -8,8 +8,12 @@
         include $filename;
     }
 
+    foreach (glob("api/*/*.php") as $filename) {
+        include $filename;
+    }
+ 
     Route::set('landfills', function() {
-        Landfill::get();
+        LandfillsController::get();
     });
 
     Route::set('waste', function() {

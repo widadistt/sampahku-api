@@ -1,6 +1,6 @@
 <?php
 
-    class Landfill{
+    class Landfill {
         //DB stuff
         private $conn;
         private $table = 'landfill';

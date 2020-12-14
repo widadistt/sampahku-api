@@ -7,12 +7,21 @@
     
         private $classGateway;
     
-        public function __construct($requestMethod, $id, $gateway)
+        public function __construct($gateway)
         {
+            $uri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
+            $uri = explode( '/', $uri );
+        
+            $id = null;
+            if (isset($uri[3])) {
+                $id = $uri[3];
+            }
+
+            $requestMethod = $_SERVER["REQUEST_METHOD"];
+
             $this->requestMethod = $requestMethod;
             $this->id = $id;
-    
-            $this->classGateway = new $gateway($db);
+            $this->classGateway = $gateway;
         }
 
         public function processRequest()
@@ -20,30 +29,23 @@
             switch ($this->requestMethod) {
                 case 'GET':
                     if ($this->id) {
-                        require_once('./api/$gateway/get_single.php');
+                        require_once('./api/'.$this->classGateway.'/get_single.php');
                     } else {
-                        require_once('./api/$gateway/get.php');
+                        require_once('./api/'.$this->classGateway.'/get.php');
                     };
                     break;
                 case 'POST':
-                    require_once('./api/$gateway/post.php');
+                    require_once('./api/'.$this->classGateway.'/post.php');
                     break;
                 case 'PUT':
-                    require_once('./api/$gateway/put.php');
+                    require_once('./api/'.$this->classGateway.'/put.php');
                     break;
                 case 'DELETE':
-                    require_once('./api/$gateway/delete.php');
+                    require_once('./api/'.$this->classGateway.'/delete.php');
                     break;
                 default:
                     $response = $this->notFoundResponse();
-
                     print_r(json_encode($response));
-                    /*
-                    header($response['status_code_header']);
-                    if ($response['body']) {
-                        echo $response['body'];
-                    }
-                    */
                     break;
             }
         }
@@ -54,13 +56,6 @@
             $response['body'] = null;
             return $response;
         }
-
-        /*
-        public static function get()
-        {
-            require_once('./api/landfills/get.php');
-        }
-        */
     }
     
 

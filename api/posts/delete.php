@@ -15,12 +15,6 @@
     //Instantiate Post
     $post =  new Post($db);
 
-    // Get raw posted data
-    $data = json_decode(file_get_contents("php://input"));
-
-    // Set ID to delete data
-    $post->id = $data->id;
-
     // Create post
     if ($post->delete()) {
         echo json_encode(

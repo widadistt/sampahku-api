@@ -15,12 +15,6 @@
     //Instantiate Waste
     $waste =  new Waste($db);
 
-    // Get raw posted data
-    $data = json_decode(file_get_contents("php://input"));
-
-    // Set ID to delete data
-    $waste->id = $data->id;
-
     // Create post
     if ($waste->delete()) {
         echo json_encode(

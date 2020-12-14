@@ -15,12 +15,6 @@
     //Instantiate Landfill
     $landfill =  new Landfill($db);
 
-    // Get raw posted data
-    $data = json_decode(file_get_contents("php://input"));
-
-    // Set ID to delete data
-    $landfill->id = $data->id;
-
     // Create post
     if ($landfill->delete()) {
         echo json_encode(

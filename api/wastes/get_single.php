@@ -13,9 +13,6 @@
     //Instantiate Waste
     $waste =  new Waste($db);
 
-    // Get and set ID
-    $waste->id = isset($_GET['id']) ? $_GET['id'] : die() ;
-
     //Get post
     $waste->get_single();
 

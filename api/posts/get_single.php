@@ -13,17 +13,6 @@
     //Instantiate Post
     $post =  new Post($db);
 
-    // Get and set ID
-    $uri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
-    $uri = explode( '/', $uri );
-
-    $userId = null;
-    if (isset($uri[2])) {
-        $userId = (int) $uri[2];
-    }
-    
-    //$post->id = isset($_GET['id']) ? $_GET['id'] : die() ;
-
     //Get post
     $post->get_single();
 
@@ -32,7 +21,7 @@
         'id' => $post->id,
         'title' => $post->title,
         'writer' => $post->writer,
-        'content' => $content,
+        'content' => $post->content,
         'published_date' => $post->published_date
     );
 

@@ -13,6 +13,16 @@
         //constructor
         public function __construct($db){
             $this->conn = $db;
+
+            $uri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
+            $uri = explode( '/', $uri );
+                
+            $id = null;
+            if (isset($uri[3])) {
+                $id = $uri[3];
+            }
+
+            $this->id = $id;
         }
 
         //get wastes
@@ -96,13 +106,13 @@
             //prepare statement
             $stmt = $this->conn->prepare($query);
 
+            $stmt->bindParam(':id', $this->id);
+            
             // Clean data
-            $this->id = htmlspecialchars(strip_tags($this->id));
             $this->name = htmlspecialchars(strip_tags($this->name));
             $this->category = htmlspecialchars(strip_tags($this->category));
 
             // Bind data
-            $stmt->bindParam(':id', $this->id);
             $stmt->bindParam(':name', $this->name);
             $stmt->bindParam(':category', $this->category);
 

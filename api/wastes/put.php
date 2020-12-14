@@ -19,7 +19,6 @@
     $data = json_decode(file_get_contents("php://input"));
 
     // Set to update data
-    $waste->id = $data->id;
     $waste->name = $data->name;
     $waste->category = $data->category;
 

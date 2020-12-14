@@ -19,10 +19,8 @@
     $data = json_decode(file_get_contents("php://input"));
 
     // Set to update data
-    $post->id = $data->id;
     $post->title = $data->title;
     $post->writer = $data->writer;
-    $post->published_date = $data->published_date;
     $post->content = $data->content;
 
     // Create post

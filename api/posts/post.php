@@ -21,8 +21,7 @@
     $post->title = $data->title;
     $post->writer = $data->writer;
     $post->content = $data->content;
-    $post->published_date = $data->published_date;
-
+    
     // Create post
     if ($post->post()) {
         echo json_encode(

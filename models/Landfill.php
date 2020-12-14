@@ -14,6 +14,16 @@
         //constructor
         public function __construct($db){
             $this->conn = $db;
+
+            $uri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
+            $uri = explode( '/', $uri );
+                
+            $id = null;
+            if (isset($uri[3])) {
+                $id = $uri[3];
+            }
+
+            $this->id = $id;
         }
 
         //get landfills
@@ -102,14 +112,15 @@
             //prepare statement
             $stmt = $this->conn->prepare($query);
 
+            // Bind ID 
+            $stmt->bindParam(':id', $this->id);
+
             // Clean data
-            $this->id = htmlspecialchars(strip_tags($this->id));
             $this->name = htmlspecialchars(strip_tags($this->name));
             $this->phone_number = htmlspecialchars(strip_tags($this->phone_number));
             $this->address = htmlspecialchars(strip_tags($this->address));
 
             // Bind data
-            $stmt->bindParam(':id', $this->id);
             $stmt->bindParam(':name', $this->name);
             $stmt->bindParam(':phone_number', $this->phone_number);
             $stmt->bindParam(':address', $this->address);

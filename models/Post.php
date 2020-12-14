@@ -15,6 +15,16 @@
         //constructor
         public function __construct($db){
             $this->conn = $db;
+
+            $uri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
+            $uri = explode( '/', $uri );
+                
+            $id = null;
+            if (isset($uri[3])) {
+                $id = $uri[3];
+            }
+
+            $this->id = $id;
         }
 
         //get posts
@@ -66,7 +76,6 @@
                 SET
                     title = :title,
                     writer = :writer,
-                    ,
                     content = :content';
 
             //prepare statement
@@ -75,10 +84,12 @@
             // Clean data
             $this->title = htmlspecialchars(strip_tags($this->title));
             $this->writer = htmlspecialchars(strip_tags($this->writer));
+            $this->content = htmlspecialchars(strip_tags($this->content));
 
             // Bind data
             $stmt->bindParam(':title', $this->title);
             $stmt->bindParam(':writer', $this->writer);
+            $stmt->bindParam(':content', $this->content);
 
             //exeCUTE
             if ($stmt->execute()){
@@ -92,7 +103,20 @@
         // Update POST
         public function update()
         {
-            $query = 'UPDATE post
+            $query = 'SELECT * FROM post
+                WHERE
+                    id = :id';
+
+            //prepare statement
+            $stmt = $this->conn->prepare($query);
+            $stmt->bindParam(':id', $this->id);
+            $stmt->execute();
+
+            if (!($stmt -> fetch())) {
+                print_r(json_encode(
+                    array('message' => 'Wrong ID')));
+            } else {
+                $query = 'UPDATE post
                 SET
                     title = :title,
                     writer = :writer,
@@ -100,28 +124,27 @@
                 WHERE
                     id = :id';
 
-            //prepare statement
-            $stmt = $this->conn->prepare($query);
+                //prepare statement
+                $stmt = $this->conn->prepare($query);
 
-            // Clean data
-            $this->id = htmlspecialchars(strip_tags($this->id));
-            $this->title = htmlspecialchars(strip_tags($this->title));
-            $this->writer = htmlspecialchars(strip_tags($this->writer));
-            $this->content = htmlspecialchars(strip_tags($this->content));
-            $this->published_date = htmlspecialchars(strip_tags($this->published_date));
+                // Clean data
+                $this->title = htmlspecialchars(strip_tags($this->title));
+                $this->writer = htmlspecialchars(strip_tags($this->writer));
+                $this->content = htmlspecialchars(strip_tags($this->content));
 
-            // Bind data
-            $stmt->bindParam(':id', $this->id);
-            $stmt->bindParam(':title', $this->title);
-            $stmt->bindParam(':writer', $this->writer);
-            $stmt->bindParam(':content', $this->content);
+                // Bind data
+                $stmt->bindParam(':id', $this->id);
+                $stmt->bindParam(':title', $this->title);
+                $stmt->bindParam(':writer', $this->writer);
+                $stmt->bindParam(':content', $this->content);
 
-            //exeCUTE
-            if ($stmt->execute()){
-                return true;
-            } else {
-                printf("Error: %s.\n", $stmt->error);
-                return false;
+                //exeCUTE
+                if ($stmt->execute()){
+                    return true;
+                } else {
+                    printf("Error: %s.\n", $stmt->error);
+                    return false;
+                }
             }
         }
 

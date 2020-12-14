@@ -18,8 +18,8 @@
     // Get raw posted data
     $data = json_decode(file_get_contents("php://input"));
 
-    // Set to update data
-    $landfill->id = $data->id;
+    // // Set to update data
+    // $landfill->id = $data->id;
     $landfill->name = $data->name;
     $landfill->phone_number = $data->phone_number;
     $landfill->address = $data->address;

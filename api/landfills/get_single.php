@@ -13,9 +13,6 @@
     //Instantiate Landfill
     $landfill =  new Landfill($db);
 
-    // Get and set ID
-    $landfill->id = isset($_GET['id']) ? $_GET['id'] : die() ;
-
     //Get post
     $landfill->get_single();
 

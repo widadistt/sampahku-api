@@ -15,6 +15,8 @@
     //Instantiate Waste
     $waste =  new Waste($db);
 
+    echo "$waste->$id";
+    echo "post";
     // Get raw posted data
     $data = json_decode(file_get_contents("php://input"));
 

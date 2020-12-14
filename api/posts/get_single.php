@@ -14,7 +14,15 @@
     $post =  new Post($db);
 
     // Get and set ID
-    $post->id = isset($_GET['id']) ? $_GET['id'] : die() ;
+    $uri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
+    $uri = explode( '/', $uri );
+
+    $userId = null;
+    if (isset($uri[2])) {
+        $userId = (int) $uri[2];
+    }
+    
+    //$post->id = isset($_GET['id']) ? $_GET['id'] : die() ;
 
     //Get post
     $post->get_single();

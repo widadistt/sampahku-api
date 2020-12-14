@@ -9,6 +9,7 @@
         public $id;
         public $title;
         public $writer;
+        public $content;
         public $published_date;
 
         //constructor
@@ -54,6 +55,7 @@
             $this->id = $row['id'];
             $this->title = $row['title'];
             $this->writer = $row['writer'];
+            $this->content = $row['content'];
             $this->published_date = $row['published_date'];
         }
 
@@ -64,7 +66,8 @@
                 SET
                     title = :title,
                     writer = :writer,
-                    published_date = :published_date';
+                    ,
+                    content = :content';
 
             //prepare statement
             $stmt = $this->conn->prepare($query);
@@ -72,12 +75,10 @@
             // Clean data
             $this->title = htmlspecialchars(strip_tags($this->title));
             $this->writer = htmlspecialchars(strip_tags($this->writer));
-            $this->published_date = htmlspecialchars(strip_tags($this->published_date));
 
             // Bind data
             $stmt->bindParam(':title', $this->title);
             $stmt->bindParam(':writer', $this->writer);
-            $stmt->bindParam(':published_date', $this->published_date);
 
             //exeCUTE
             if ($stmt->execute()){
@@ -95,7 +96,7 @@
                 SET
                     title = :title,
                     writer = :writer,
-                    published_date = :published_date
+                    content = :content
                 WHERE
                     id = :id';
 
@@ -106,13 +107,14 @@
             $this->id = htmlspecialchars(strip_tags($this->id));
             $this->title = htmlspecialchars(strip_tags($this->title));
             $this->writer = htmlspecialchars(strip_tags($this->writer));
+            $this->content = htmlspecialchars(strip_tags($this->content));
             $this->published_date = htmlspecialchars(strip_tags($this->published_date));
 
             // Bind data
             $stmt->bindParam(':id', $this->id);
             $stmt->bindParam(':title', $this->title);
             $stmt->bindParam(':writer', $this->writer);
-            $stmt->bindParam(':published_date', $this->published_date);
+            $stmt->bindParam(':content', $this->content);
 
             //exeCUTE
             if ($stmt->execute()){

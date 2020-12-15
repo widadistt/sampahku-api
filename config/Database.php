@@ -2,10 +2,19 @@
 
     class Database{
         //DB Params
-        private $host = 'localhost';
-        private $db_name = 'sampahku';
-        private $username = 'root';
-        private $password = '';
+
+        // DB for development
+        // private $host = 'localhost';
+        // private $db_name = 'sampahku';
+        // private $username = 'root';
+        // private $password = '';
+        // private $conn;
+
+        // DB for deployment
+        private $host = 'sql12.freemysqlhosting.net';
+        private $db_name = 'sql12382203';
+        private $username = 'sql12382203';
+        private $password = 'rH3SUkEdvG';
         private $conn;
 
         //DB connect

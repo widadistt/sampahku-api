@@ -1,5 +1,7 @@
 <?php
 
+    echo "helo";
+    
     require_once("Routes.php");
 
     function autoloader($class_name) {

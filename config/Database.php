@@ -10,12 +10,7 @@
         // private $password = '';
         // private $conn;
 
-        // // DB for deployment
-        // private $host = 'sql12.freemysqlhosting.net';
-        // private $db_name = 'sql12382203';
-        // private $username = 'sql12382203';
-        // private $password = 'rH3SUkEdvG';
-        // private $conn;
+        // DB for deployment
 
         //DB connect
         public function connect(){
@@ -23,13 +18,21 @@
 
             try {
                 $db = parse_url(getenv("postgres://tsksabxokdawqm:03f55d605a04fa4d25ee18b978c211953141532f2196333a6a7ed0e4862d0744@ec2-52-201-55-4.compute-1.amazonaws.com:5432/d4h2ac7l9anakb"));
-                $this->conn = new PDO("pgsql:" . sprintf(
+
+                // $host = 'ec2-52-201-55-4.compute-1.amazonaws.com';
+                // $db_name = 'd4h2ac7l9anakb';
+                // $username = 'tsksabxokdawqm';
+                // $password = '03f55d605a04fa4d25ee18b978c211953141532f2196333a6a7ed0e4862d0744';
+                // $port = 5432;
+
+                $this->conn = new PDO("mysql:host=$servername;dbname=$database", $username, $password);
+                new PDO("pgsql:" . sprintf(
                     "host=%s;port=%s;user=%s;password=%s;dbname=%s",
-                    $db["host"],
-                    $db["port"],
-                    $db["user"],
-                    $db["pass"],
-                    ltrim($db["path"], "/")
+                    'ec2-52-201-55-4.compute-1.amazonaws.com',
+                    5432,
+                    'tsksabxokdawqm',
+                    '03f55d605a04fa4d25ee18b978c211953141532f2196333a6a7ed0e4862d0744',
+                    'd4h2ac7l9anakb')
                 ));
                 $this->conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
             } catch (PDOException $e) {

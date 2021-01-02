@@ -8,6 +8,7 @@
         // private $db_name = 'sampahku';
         // private $username = 'root';
         // private $password = '';
+
         private $conn;
 
         // DB for deployment
@@ -21,8 +22,7 @@
             $this->conn = null;
 
             try {
-
-                $this->conn = new PDO("mysql:host=$servername;dbname=$database", $username, $password);
+                $this->conn = new PDO("mysql:host=$host;dbname=$db_name", $username, $password);
                 
                 // new PDO("pgsql:" . sprintf(
                 //     "host=%s;port=%s;user=%s;password=%s;dbname=%s",

@@ -19,9 +19,9 @@
     $data = json_decode(file_get_contents("php://input"));
 
     $landfill->name = $data->name;
-    $landfill->phone_number = $data->phone_number;
+    $landfill->phone_number = (int) $data->phone_number;
     $landfill->address = $data->address;
-
+    
     // Create post
     if ($landfill->post()) {
         echo json_encode(

@@ -14,4 +14,13 @@
 
     spl_autoload_register('autoloader');
 
+    // if (isset($_GET['code'])) {
+    //     $client->authenticate($_GET['code']);
+    //     $_SESSION['access_token'] = $client->getAccessToken();
+    //     header('Location: ' . filter_var($redirect_uri, FILTER_SANITIZE_URL));
+    // }
+    //Set Access Token to make Request
+    // if (isset($_SESSION['access_token']) && $_SESSION['access_token']) {
+    //     $client->setAccessToken($_SESSION['access_token']);
+    // }
 ?>

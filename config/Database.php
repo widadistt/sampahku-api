@@ -12,14 +12,19 @@
         private $conn;
 
         // DB for deployment
-        private $host = 'sql12.freemysqlhosting.net';
-        private $db_name = 'sql12384697';
-        private $username = 'sql12384697';
-        private $password = 'wqLDnFyuNG';
+        // private $host = 'sql12.freemysqlhosting.net';
+        // private $db_name = 'sql12384697';
+        // private $username = 'sql12384697';
+        // private $password = 'wqLDnFyuNG';
 
         //DB connect
         public function connect(){
             $this->conn = null;
+
+            $host = 'sql12.freemysqlhosting.net';
+            $db_name = 'sql12384697';
+            $username = 'sql12384697';
+            $password = 'wqLDnFyuNG';
 
             try {
                 $this->conn = new PDO("mysql:host=$host;dbname=$db_name", $username, $password);

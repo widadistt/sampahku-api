@@ -19,13 +19,13 @@
             $uri = explode( '/', $uri );
             
             // DEBUG
-            echo "1", $uri[1];
-            echo "2", $uri[2];
-            echo "3", $uri[3];
+            // echo "1", $uri[1];
+            // echo "2", $uri[2];
+            // echo "3", $uri[3];
 
             $id = null;
-            if (isset($uri[3])) {
-                $id = $uri[3];
+            if (isset($uri[2])) {
+                $id = $uri[2];
             }
 
             $this->id = $id;

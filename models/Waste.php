@@ -18,8 +18,8 @@
             $uri = explode( '/', $uri );
                 
             $id = null;
-            if (isset($uri[3])) {
-                $id = $uri[3];
+            if (isset($uri[2])) {
+                $id = $uri[2];
             }
 
             $this->id = $id;

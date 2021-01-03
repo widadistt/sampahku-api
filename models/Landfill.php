@@ -17,7 +17,10 @@
 
             $uri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
             $uri = explode( '/', $uri );
-                
+            
+            // DEBUG
+            echo $uri[1] $uri[2], $uri[3];
+
             $id = null;
             if (isset($uri[3])) {
                 $id = $uri[3];

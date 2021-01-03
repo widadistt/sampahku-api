@@ -19,7 +19,7 @@
             $uri = explode( '/', $uri );
             
             // DEBUG
-            echo $uri[1] $uri[2], $uri[3];
+            echo $uri[1], $uri[2], $uri[3];
 
             $id = null;
             if (isset($uri[3])) {
